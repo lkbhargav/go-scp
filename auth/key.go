@@ -37,7 +37,16 @@ func PrivateKey(username string, path string, keyCallBack ssh.HostKeyCallback) (
 	}, nil
 }
 
-// Creates the configuration for a client that authenticates with a password protected private key
+// SetUsername => Just loads the username part
+func SetUsername(username string, path string, keyCallBack ssh.HostKeyCallback) (ssh.ClientConfig, error) {
+	return ssh.ClientConfig{
+		User:            username,
+		Auth:            nil,
+		HostKeyCallback: keyCallBack,
+	}, nil
+}
+
+// PrivateKeyWithPassphrase => Creates the configuration for a client that authenticates with a password protected private key
 func PrivateKeyWithPassphrase(username string, passpharase []byte, path string, keyCallBack ssh.HostKeyCallback) (ssh.ClientConfig, error) {
 	privateKey, err := ioutil.ReadFile(path)
 
